@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @post.content %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= image_tag @post.image.url, class:"image" %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @post.user %>
+</p>
+
+<%= link_to 'Confirm', posts_path %> |
+<%= link_to 'Back', edit_post_path(@post) %>

@@ -1,0 +1,65 @@
+
+<p id="notice"><%= notice %></p>
+<% if user_signed_in? %>
+ <% check = 0, links='1', id=nil %>
+ <% @profiles.each do |profile| %>
+   <% if current_user.id == profile.user_id %>
+     <% check = 1%>
+     <%links = profile.image.url %>
+     <%id =profile%>
+   <% end %>
+<% end %>
+<% if check==1 %>
+<p style="color:blue">profile picture</p>
+ <p><%= image_tag links, class:"round" unless links.blank? %></p>
+ <%= link_to 'change ', edit_profile_path(id) %>
+ <%= link_to 'remove ', id, method: :delete, data: { confirm: 'Are you sure?' } %>
+ <% else %>
+ <p><i class="fal fa-user"></i></p>
+ <%= link_to 'upload a profile picture', new_profile_path %>
+ <% end %>
+<% end %>
+
+
+
+<h1 class="card">Posts</h1>
+
+    <% @posts.each do |post| %>
+
+      <div class="card">
+      <div class="card-header">
+      <% if user_signed_in? %>
+      <p>
+     from:<%= post.user.email %>
+      </p>
+      <% end %>
+      </div>
+      <div class="card-body">
+      <p><%= post.content %></p>
+      <%= image_tag post.image.url, class:"image" %>
+      </div> 
+      <div class="card-footer">
+      <% if user_signed_in? %>
+      <% if current_user.id==post.user_id %>
+      <%= link_to 'New Post', new_post_path %>
+       <%= link_to 'Show', post %>
+       <%= link_to 'Edit', edit_post_path(post) %>
+     <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+     
+     <% end %>
+     <% unless post.user_id == current_user.id %>
+  <% if @favorite.present? %>
+    <%= link_to 'Cancel favorite', favorite_path(id: @favorite.id), method: :delete, class: 'btn btn-danger' %>
+  <% else %>
+    <%= link_to 'Make it a favorite', favorites_path(post_id: post.id), method: :post, class: 'btn btn-primary' %>
+  <% end %>
+  <% end %>
+<% end %>
+   
+      </div>
+    </div>
+    <br>
+    <% end %>
+<br>
+
+
