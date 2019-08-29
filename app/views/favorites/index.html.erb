@@ -1,0 +1,13 @@
+<h1 style:"color:green">  All favorites</h1>
+<% @favorites.each do |favo| %>
+
+    <p>
+   from:<%= favo.user.email %>
+    </p>
+    <p><%= favo.post.content %></p>
+    <p><%= image_tag favo.post.image.url, class:"image" %></p>
+    </div> 
+    <br>
+<% end %>
+
+ 
